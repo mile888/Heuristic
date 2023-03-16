@@ -12,6 +12,11 @@ co = cohere.Client(os.environ.get("COHERE_API_TOKEN"))
 
 logger = logging.getLogger(__name__)
 
+def trim(t):
+    word_list = t.lower().split()
+    return  " ".join(word_list)
+    
+
 class Heuristic(WebClient):
     def __init__(self) -> None:
         super().__init__(token=os.environ.get("SLACK_BOT_TOKEN"))
@@ -19,7 +24,7 @@ class Heuristic(WebClient):
         self._payload = []
         self._vectors = []
         self._idx = []
-
+        
     def set_channels(self):
         self._channels = self.conversations_list()
 
@@ -63,11 +68,14 @@ class Heuristic(WebClient):
     def setup(self):
         self.set_channels()
         print("Found -{}- channels".format(len(self._channels["channels"])))
+        indexer_counter = 1
 
         for channel_detail in self._channels["channels"]:
             channel_id = channel_detail["id"]
             channel_messages = self.retrieve_messages(channel_id)
             print("Found {} messages from <{}> channel".format(len(channel_messages), channel_detail["name"]))
+            if channel_detail["name"] == "general":
+                continue
 
             for message in channel_messages:
                 ts = message["ts"]
@@ -88,7 +96,7 @@ class Heuristic(WebClient):
                     elif "has joined the channel" in _tm["text"]:
                         pass
                     else:
-                        _threads.append( _tm["text"].replace('\n', ''))
+                        _threads.append( trim(_tm["text"]))
 
                 joined_child_with_parent = " ".join(_threads)
                 self._payload.append({
@@ -100,7 +108,8 @@ class Heuristic(WebClient):
                 self._vectors.append(
                     co.embed(texts=[joined_child_with_parent], model="multilingual-22-12").embeddings[0]
                 )
-                self._idx.append(message["user"])
+                self._idx.append(indexer_counter)
+                indexer_counter += 1
 
 
 if __name__ == "__main__":
@@ -108,4 +117,4 @@ if __name__ == "__main__":
     hai.setup()
 
     random_index = 5
-    print(hai._payload[random_index], hai._vectors[random_index], hai._idx[random_index])
+    # print(hai._payload[random_index], hai._vectors[random_index], hai._idx[random_index])
