@@ -91,7 +91,7 @@ def message_hai(message, say):
                         prompt = prompt + trim(passages[0]),  
                         max_tokens=200,  
                         temperature=0.750) 
-        # print(answers)
+        print("======", answer)
         block = block_answer(answer.generations[0].text, users[0], urls[0])
         say(
             blocks=block
