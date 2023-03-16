@@ -74,8 +74,6 @@ class Heuristic(WebClient):
             channel_id = channel_detail["id"]
             channel_messages = self.retrieve_messages(channel_id)
             print("Found {} messages from <{}> channel".format(len(channel_messages), channel_detail["name"]))
-            if channel_detail["name"] == "general":
-                continue
 
             for message in channel_messages:
                 ts = message["ts"]

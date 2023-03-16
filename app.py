@@ -61,8 +61,6 @@ def message_hai(message, say):
         )
 
     else:
-        answer = "{}".format("This is a answer to a user query")
-        link = "https://heuristicai.slack.com/archives/C04UMPXL7CG/p1678860294484939"
 
         query = trim(message["text"])
 
@@ -79,13 +77,13 @@ def message_hai(message, say):
             users.append(dic["payload"]["user"])
         
         
-        prompt = "Extract the answer from the context: "
+        prompt = "Generate the answer from the following context: "
         # answers = [ 
         #             co.generate(  
-        #                 model='command-xlarge-nightly',  
+        #                 model='command-medium-nightly',  
         #                 prompt = prompt + trim(context),  
         #                 max_tokens=200,  
-        #                 temperature=0.750) 
+        #                 temperature=0.650) 
         #             for context in passages
         #         ]
         answer = co.generate(  
@@ -94,7 +92,6 @@ def message_hai(message, say):
                         max_tokens=200,  
                         temperature=0.750) 
         # print(answers)
-        
         block = block_answer(answer.generations[0].text, users[0], urls[0])
         say(
             blocks=block
