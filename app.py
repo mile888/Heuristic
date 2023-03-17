@@ -2,6 +2,7 @@ import os
 # Use the package we installed
 from slack_bolt import App
 import cohere
+from string_cleaner import trim
 from _qdrant import Qdrant
 from internal_api import Heuristic
 from template_block._blocker import block_answer, block_setup
@@ -13,25 +14,18 @@ app = App(
 )
 co = cohere.Client(os.environ.get("COHERE_API_TOKEN"))
 
-def trim(q):
-
-    word_list = q.lower().replace("hai", "").split()
-    if len(q) > 0:
-        phrase = " ".join(word_list[1:]) if word_list[0] in [",", ";"] else " ".join(word_list[:])
-        return phrase
-    else:
-        return " ".join(word_list)
 
 # Listenning to events
-@app.message("hai")
-def message_hai(message, say):
+@app.event("message")
+def event_hai(event, say):
+    print(event, event["text"])
     qdrant = Qdrant(
             url=os.environ.get("QDRANT_URL"), 
             prefer_grpc=True,
             api_key=os.environ.get("QDRANT_API_TOKEN"),
         )
     
-    if "setup" in message["text"].lower():
+    if "setup" in event["text"].lower():
         # init message
         block = block_setup()
         say(
@@ -62,7 +56,7 @@ def message_hai(message, say):
 
     else:
 
-        query = trim(message["text"])
+        query = trim(event["text"])
 
         embed = co.embed(texts=[query], model="multilingual-22-12").embeddings[0]
         results = qdrant.search_answer(embed, topk=5)
@@ -90,9 +84,10 @@ def message_hai(message, say):
                         model='command-xlarge-nightly',  
                         prompt = prompt + trim(passages[0]),  
                         max_tokens=200,  
-                        temperature=0.750) 
+                        temperature=0.650)
+        answer = answer.generations[0].text
         print("======", answer)
-        block = block_answer(answer.generations[0].text, users[0], urls[0])
+        block = block_answer(answer, users[0], urls[0])
         say(
             blocks=block
         )

@@ -2,6 +2,7 @@
 import logging
 import cohere
 import os, json
+from string_cleaner import trim
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
@@ -81,7 +82,7 @@ class Heuristic(WebClient):
                 # find all threaded messages
                 thread_messages = self.find_threaded_messages(channel_id, ts)
 
-                # join all the threaded messages
+                # join all the threaded messages pass useless message
                 _threads = []
 
                 for _tm in thread_messages:
@@ -89,9 +90,9 @@ class Heuristic(WebClient):
                         pass
                     elif "bot_id" in _tm:
                         pass
-                    elif "This message was deleted" in _tm["text"]:
+                    elif "this message was deleted" in _tm["text"].lower():
                         pass
-                    elif "has joined the channel" in _tm["text"]:
+                    elif "has joined the channel" in _tm["text"].lower():
                         pass
                     else:
                         _threads.append( trim(_tm["text"]))
