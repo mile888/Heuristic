@@ -1,9 +1,9 @@
 import os
 from typing import Any, Optional
 from qdrant_client import QdrantClient
+from qdrant_client.http.models import Batch
 from qdrant_client.http.models import Distance, VectorParams
 from qdrant_client.http.models import OptimizersConfigDiff
-from qdrant_client.http.models import Batch
 
 
 class Qdrant(QdrantClient):
@@ -20,6 +20,8 @@ class Qdrant(QdrantClient):
             optimizer_config=OptimizersConfigDiff(indexing_threshold=50000)
             )
         
+    def get_points_count(self, collection_name):
+        return self.get_collection(collection_name=collection_name).points_count
 
     def check_collection(self, collection):
         res = self.get_collection(collection_name=collection)
@@ -28,7 +30,14 @@ class Qdrant(QdrantClient):
     def drop(self, name):
         self.delete_collection(collection_name=name)
 
-    def insert(self, rec, size=12):
+    def insert_batch(self, rec, size=12):
+        self.upsert(
+                collection_name="hai",
+                points=Batch(ids=rec["idx"], vectors=rec["vectors"], payloads=rec["payloads"]),
+                wait=True,
+            )
+    
+    def insert_one(self, rec, size=12):
         self.upsert(
                 collection_name="hai",
                 points=Batch(ids=rec["idx"], vectors=rec["vectors"], payloads=rec["payloads"]),

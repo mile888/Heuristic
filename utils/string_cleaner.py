@@ -1,4 +1,6 @@
-def trim(q):
+from typing import Any
+
+def trim(q: Any) -> str:
 
     word_list = q.lower().replace("hai", "").split()
     if len(q) > 0:

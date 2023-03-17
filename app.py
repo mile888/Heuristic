@@ -1,10 +1,9 @@
 import os
-# Use the package we installed
-from slack_bolt import App
 import cohere
-from string_cleaner import trim
+from slack_bolt import App
 from _qdrant import Qdrant
-from internal_api import Heuristic
+from _heuristic import Heuristic
+from utils.string_cleaner import trim
 from template_block._prompt import structure
 from template_block._blocker import block_answer, block_setup
 
@@ -42,7 +41,7 @@ def event_hai(event, say):
                     "idx": hai._idx
                 })
             print("after create collection")
-            qdrant.insert(
+            qdrant.insert_batch(
                 {
                     "idx": hai._idx,
                     "payloads": hai._payload,
@@ -84,7 +83,7 @@ def event_hai(event, say):
             #             for context in passages
             #         ]
             answer = co.generate(  
-                            model='command-medium-nightly',  
+                            model='command-xlarge-nightly',  
                             prompt = prompt,  
                             max_tokens=400,  
                             temperature=0.87)
@@ -94,6 +93,10 @@ def event_hai(event, say):
             say(
                 blocks=block
             )
+    else:
+        hai = Heuristic()
+        
+        
 
 # Start your app
 if __name__ == "__main__":

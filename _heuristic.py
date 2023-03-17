@@ -1,9 +1,9 @@
 
-import logging
+import os
 import cohere
-import os, json
-from string_cleaner import trim
+import logging
 from slack_sdk import WebClient
+from utils.string_cleaner import trim
 from slack_sdk.errors import SlackApiError
 
 # WebClient instantiates a client that can call API methods
@@ -12,14 +12,10 @@ from slack_sdk.errors import SlackApiError
 co = cohere.Client(os.environ.get("COHERE_API_TOKEN"))
 
 logger = logging.getLogger(__name__)
-
-def trim(t):
-    word_list = t.lower().split()
-    return  " ".join(word_list)
     
 
 class Heuristic(WebClient):
-    def __init__(self) -> None:
+    def __init__(self):
         super().__init__(token=os.environ.get("SLACK_BOT_TOKEN"))
         self._channels = []
         self._payload = []
