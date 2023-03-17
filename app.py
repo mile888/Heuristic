@@ -5,6 +5,7 @@ import cohere
 from string_cleaner import trim
 from _qdrant import Qdrant
 from internal_api import Heuristic
+from template_block._prompt import structure
 from template_block._blocker import block_answer, block_setup
 
 # Initializes your app with your bot token and signing secret
@@ -23,7 +24,7 @@ def event_hai(event, say):
             prefer_grpc=True,
             api_key=os.environ.get("QDRANT_API_TOKEN"),
         )
-
+    print(event["text"].lower())
     if "hai" in event["text"].lower():
 
         if "setup" in event["text"].lower():
@@ -72,7 +73,8 @@ def event_hai(event, say):
                 users.append(dic["payload"]["user"])
             
             
-            prompt = "Generate the answer from the following context: "
+            # prompt = "Generate the answer from the following context: "
+            prompt = structure(context=passages[0], query=query)
             # answers = [ 
             #             co.generate(  
             #                 model='command-medium-nightly',  
@@ -82,10 +84,10 @@ def event_hai(event, say):
             #             for context in passages
             #         ]
             answer = co.generate(  
-                            model='command-xlarge-nightly',  
-                            prompt = prompt + trim(passages[0]),  
+                            model='command-medium-nightly',  
+                            prompt = prompt,  
                             max_tokens=400,  
-                            temperature=0.80)
+                            temperature=0.87)
             answer = answer.generations[0].text
             print("======", answer)
             block = block_answer(answer, users[0], urls[0])
