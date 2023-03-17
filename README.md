@@ -19,6 +19,14 @@ Heuristic enables users to ask questions in Slack/discord/teams and receive answ
 - [x] **Ngrok**: It is a simplified API that adds connect local wep appplication to the any cloud. It forward all user query to Amazon EC2 which make the text generation 🏗️
 - [x] **Amazon EC2**: Used to host the ngrok, and slack_app
 
-### How to use
 
-If you want to replicate and have this Alpha version of our app on your slack, that is the main step to follow:
+### How to use
+If you want to test our app, you have to join our [slack server](https://join.slack.com/t/heuristicai/shared_invite/zt-1reg204at-6BlH_V5E4r18BnpZX2JByA). 
+
+Due to the limited, we did get chance to prepare the distribution of our app and deploy on slack app directory for review, then Slkack team has to verify if we respect the Terms and condition, and this verification process could take time, so we decide to allow user to join our workspace to test it.
+
+The steps:
+
+- Write and populate  slack channels {general, random or test} with the relavant information that you want the app to be able to retrieve, be imaginative. And following the structure of general message, then reply in thread.
+- after populating, now, you must index all message just by asking our AI app called "hai", by the keyword setup: e.j: "hai, start the setup". You should receive message Indexing done.
+- Then now you can try to search following the structure: "hai, your-query"
