@@ -1,4 +1,4 @@
 cohere
 slack_sdk
 slack_bolt
-qdrand-client
+qdrant-client
