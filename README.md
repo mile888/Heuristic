@@ -30,3 +30,5 @@ The steps:
 - Write and populate  slack channels {general, random or test} with the relavant information that you want the app to be able to retrieve, be imaginative. And following the structure of general message, then reply in thread.
 - after populating, now, you must index all message just by asking our AI app called "hai", by the keyword setup: e.j: "hai, start the setup". You should receive message Indexing done.
 - Then now you can try to search following the structure: "hai, your-query"
+- and you can stay in a channel, just ask a query it will dig into all slack channels and give the answer to you with exact location of the message.
+- Just be innovative while searching, try to ask question in German and you will get the answer in german with the location of the message in the original language.
