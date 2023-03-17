@@ -18,7 +18,6 @@ co = cohere.Client(os.environ.get("COHERE_API_TOKEN"))
 # Listenning to events
 @app.event("message")
 def event_hai(event, say):
-    print(event, event["text"])
     qdrant = Qdrant(
             url=os.environ.get("QDRANT_URL"), 
             prefer_grpc=True,
@@ -83,8 +82,8 @@ def event_hai(event, say):
         answer = co.generate(  
                         model='command-xlarge-nightly',  
                         prompt = prompt + trim(passages[0]),  
-                        max_tokens=200,  
-                        temperature=0.650)
+                        max_tokens=400,  
+                        temperature=0.80)
         answer = answer.generations[0].text
         print("======", answer)
         block = block_answer(answer, users[0], urls[0])
