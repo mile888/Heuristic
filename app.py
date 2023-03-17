@@ -23,8 +23,8 @@ def event_hai(event, say):
             prefer_grpc=True,
             api_key=os.environ.get("QDRANT_API_TOKEN"),
         )
-    
-    if "setup" in event["text"].lower():
+    print("setup" in event["text"].lower())
+    if "setup" in event["text"].lower() and "hai" in event["text"].lower():
         # init message
         block = block_setup()
         say(
