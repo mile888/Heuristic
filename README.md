@@ -15,7 +15,7 @@ Designing... 🏗️
 
 - [x] Cohere: Generative model `command-xlarge-nightly` which allow us to extract the answer to the user query from the extracted passage. We used Cohere also to  encode user conversation (embedding vectors). We use 
 - [x] Qdrant: The vector search engine we have used after making some benchmark {Qdrant, Milvus, Faiss}. Qdrant is the fastest way to search index and very easy manipulate collection (intuitively).
-- [x] Slack_bolt: desc 🏗️
+- [x] Slack_bolt: It is a python framework that makes it easier to build Slack apps with the platform's latest features. We could have been able to distribute the slack app (via OAuth & Permissions), but due to time constrains, the app is running on our [Heuristic AI Slack server](https://join.slack.com/t/heuristicai/shared_invite/zt-1reg204at-6BlH_V5E4r18BnpZX2JByA), you can join easily and test it features.
 - [x] Ngrok: desc 🏗️
 - [x] AWS EC2: desc 🏗️
 
