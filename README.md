@@ -21,4 +21,4 @@ Heuristic enables users to ask questions in Slack/discord/teams and receive answ
 
 ### How to use
 
-After that the Demo is done... 🏗️
+If you want to replicate and have this Alpha version of our app on your slack, that is the main step to follow:
