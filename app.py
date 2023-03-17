@@ -23,73 +23,75 @@ def event_hai(event, say):
             prefer_grpc=True,
             api_key=os.environ.get("QDRANT_API_TOKEN"),
         )
-    print("setup" in event["text"].lower())
-    if "setup" in event["text"].lower() and "hai" in event["text"].lower():
-        # init message
-        block = block_setup()
-        say(
-            blocks=block
-        )
-        hai = Heuristic()
-        hai.setup()
-       
-        qdrant.drop("hai")
-        qdrant.create_collection("hai")
-        print({
-                "idx": hai._idx
-            })
-        print("after create collection")
-        qdrant.insert(
-            {
-                "idx": hai._idx,
-                "payloads": hai._payload,
-                "vectors": hai._vectors
-            }
-        )
-        print("after insert")
-        
-        block = block_setup(answer="Indexing done and Ready to Search :sunglasses:")
-        say(
-            blocks=block
-        )
 
-    else:
+    if "hai" in event["text"].lower():
 
-        query = trim(event["text"])
+        if "setup" in event["text"].lower():
+            # init message
+            block = block_setup()
+            say(
+                blocks=block
+            )
+            hai = Heuristic()
+            hai.setup()
+        
+            qdrant.drop("hai")
+            qdrant.create_collection("hai")
+            print({
+                    "idx": hai._idx
+                })
+            print("after create collection")
+            qdrant.insert(
+                {
+                    "idx": hai._idx,
+                    "payloads": hai._payload,
+                    "vectors": hai._vectors
+                }
+            )
+            print("after insert")
+            
+            block = block_setup(answer="Indexing done and Ready to Search :sunglasses:")
+            say(
+                blocks=block
+            )
 
-        embed = co.embed(texts=[query], model="multilingual-22-12").embeddings[0]
-        results = qdrant.search_answer(embed, topk=5)
-        res = [dict(r) for r in results]
-        
-        passages = []
-        urls = []
-        users = []
-        for dic in res:
-            passages.append(dic["payload"]["passage"])
-            urls.append(dic["payload"]["url"])
-            users.append(dic["payload"]["user"])
-        
-        
-        prompt = "Generate the answer from the following context: "
-        # answers = [ 
-        #             co.generate(  
-        #                 model='command-medium-nightly',  
-        #                 prompt = prompt + trim(context),  
-        #                 max_tokens=200,  
-        #                 temperature=0.650) 
-        #             for context in passages
-        #         ]
-        answer = co.generate(  
-                        model='command-xlarge-nightly',  
-                        prompt = prompt + trim(passages[0]),  
-                        max_tokens=400,  
-                        temperature=0.80)
-        answer = answer.generations[0].text
-        print("======", answer)
-        block = block_answer(answer, users[0], urls[0])
-        say(
-            blocks=block
-        )
+        else:
+
+            query = trim(event["text"])
+
+            embed = co.embed(texts=[query], model="multilingual-22-12").embeddings[0]
+            results = qdrant.search_answer(embed, topk=5)
+            res = [dict(r) for r in results]
+            
+            passages = []
+            urls = []
+            users = []
+            for dic in res:
+                passages.append(dic["payload"]["passage"])
+                urls.append(dic["payload"]["url"])
+                users.append(dic["payload"]["user"])
+            
+            
+            prompt = "Generate the answer from the following context: "
+            # answers = [ 
+            #             co.generate(  
+            #                 model='command-medium-nightly',  
+            #                 prompt = prompt + trim(context),  
+            #                 max_tokens=200,  
+            #                 temperature=0.650) 
+            #             for context in passages
+            #         ]
+            answer = co.generate(  
+                            model='command-xlarge-nightly',  
+                            prompt = prompt + trim(passages[0]),  
+                            max_tokens=400,  
+                            temperature=0.80)
+            answer = answer.generations[0].text
+            print("======", answer)
+            block = block_answer(answer, users[0], urls[0])
+            say(
+                blocks=block
+            )
 
 # Start your app
 if __name__ == "__main__":
