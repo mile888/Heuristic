@@ -17,6 +17,7 @@ Designing... 🏗️
 - [x] Qdrant: desc 🏗️
 - [x] Slack_bolt: desc 🏗️
 - [x] Ngrok: desc 🏗️
+- [ ] AWS EC2: desc 🏗️
 
 ### How to use
 
