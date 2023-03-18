@@ -21,7 +21,7 @@ Heuristic enables users to ask questions in Slack/discord/teams and receive answ
 
 
 ### How to use
-If you want to test our app, you have to join our [slack server](https://join.slack.com/t/heuristicai/shared_invite/zt-1reg204at-6BlH_V5E4r18BnpZX2JByA). 
+If you want to test our app, you have to join our [slack server](https://join.slack.com/t/heuristicai/shared_invite/zt-1reg204at-6BlH_V5E4r18BnpZX2JByA). And if you find any issue to connect to our slack or not able to use our app, just leave an [issue](https://github.com/bm777/Heuristic/issues), within an hour, we will solve the issue.
 
 Due to the limited, we did get chance to prepare the distribution of our app and deploy on slack app directory for review, then Slkack team has to verify if we respect the Terms and condition, and this verification process could take time, so we decide to allow user to join our workspace to test it.
 
