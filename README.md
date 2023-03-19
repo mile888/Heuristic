@@ -13,10 +13,12 @@ Heuristic enables users to ask questions in Slack/discord/teams and receive answ
 
 ## 3. Tech stack 🏗️
 
-- [x] **Cohere**: Generative [model](https://docs.cohere.ai/docs/generation-card) `command-xlarge-nightly` which allow us to extract the answer to the user's query from the extracted passage. We used Cohere also to  encode user conversation (embedding vectors). We use 
-- [x] **Qdrant**: The vector search engine (`1GB RAM - 0.5 vCPU - 20GB DISK`) we have used after making a [benchmark](https://github.com/qdrant/vector-db-benchmark) of {Qdrant, Milvus, Faiss}. After evaluation, Qdrant is the fastest way to search index and very easy manipulate collections (intuitively).
+- [x] **Cohere**: Generative [model](https://docs.cohere.ai/docs/generation-card) `command-xlarge-nightly` which allow us to extract the answer to the user's query from the extracted passage. We used Cohere also to  encode user conversation (embedding vectors).
+- [x] **Qdrant**: The vector search engine (`1GB RAM - 0.5 vCPU - 20GB DISK`) that we have used after making a [benchmark](https://github.com/qdrant/vector-db-benchmark) of {Qdrant, Milvus, Faiss}. 
+After 
+the evaluation, Qdrant is the fastest way to search index and very easy to manipulate collections (intuitively).
 - [x] **Slack_bolt**: It is a Python framework that makes it easier to build Slack apps with the platform's latest features. We could have been able to distribute the slack app (via OAuth & Permissions), but due to time constrains, the app is running on our [Heuristic AI Slack server](https://join.slack.com/t/heuristicai/shared_invite/zt-1reg204at-6BlH_V5E4r18BnpZX2JByA), you can join easily and test it features.
-- [x] **Ngrok**: It is a simplified API that adds connect local wep appplication to the any cloud. It forward all user query to Amazon EC2 which make the text generation 🏗️
+- [x] **Ngrok**: It is a simplified API that connects local wep appplication to the any cloud. It forward all user query to Amazon EC2 DNS's instance which make the text generation 🏗️
 - [x] **Amazon EC2** (Free tier): Used to host the ngrok, and slack_app
     - Ubuntu 22.04 LTS
     - instance type: t2.micro
@@ -26,9 +28,11 @@ Heuristic enables users to ask questions in Slack/discord/teams and receive answ
 
 
 ### How to use
-If you want to test our app, you have to join our [slack server](https://join.slack.com/t/heuristicai/shared_invite/zt-1reg204at-6BlH_V5E4r18BnpZX2JByA). And if you find any issue to connect to our slack or not able to use our app, just leave an [issue](https://github.com/bm777/Heuristic/issues), within an hour, we will solve the issue.
+If you want to test our app, you have to join our [slack server](https://join.slack.com/t/heuristicai/shared_invite/zt-1reg204at-6BlH_V5E4r18BnpZX2JByA). And if you find any issue to connect to our 
+slack or not able to use our app, just leave an [issue](https://github.com/bm777/Heuristic/issues), within an hour, you will get a reply.
 
-Due to the limited, we did get chance to prepare the distribution of our app and deploy on slack app directory for review, then Slkack team has to verify if we respect the Terms and condition, and this verification process could take time, so we decide to allow user to join our workspace to test it.
+Due to the limited, we did get chance to prepare the distribution of our app and deploy on slack app directory for review, then the Slack's team has to verify and apporove our app if we respect the 
+Terms and condition, and this verification process could take time, so we decide to allow user to join our workspace to test it.
 
 The steps:
 
