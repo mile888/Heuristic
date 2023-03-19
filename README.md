@@ -39,4 +39,4 @@ The steps:
 - Just be innovative while searching, try to ask question in German and you will get the answer in german with the location of the message in the original language.
 
 ## Important
-When you will do the <hai, setupt> process, make sure that the maximum of populated messages in slack are less than 100 messages, because we encode all messages (normal message with threads are considered also as a single message with its replies, no need to count them, we process them as a single). The maximum call of co.embed is 100 per minute, the we upsert all embedding in less than 10sec in qdrant.
+When you will do the <hai, setupt> process, make sure that the maximum of populated messages in slack are less than 100 messages, because we encode all messages (normal message with threads are considered also as a single message with its replies, no need to count them, we process them as a single). The maximum call of co.embed is 100 per minute (We used free trial key), the we upsert all embedding in less than 10sec in qdrant.
