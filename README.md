@@ -42,5 +42,11 @@ The steps:
 - and you can stay in a channel, just ask a query it will dig into all slack channels and give the answer to you with exact location of the message.
 - Just be innovative while searching, try to ask question in German and you will get the answer in german with the location of the message in the original language.
 
+Search in Arabic giving the same result as in French and english
+![Alt](assets/Arabic.gif)
+
+Search in Arabic
+![Alt](assets/French.gif)
+
 ## Important
 When you will do the <hai, setupt> process, make sure that the maximum of populated messages in slack are less than 100 messages, because we encode all messages (normal message with threads are considered also as a single message with its replies, no need to count them, we process them as a single). The maximum call of co.embed is 100 per minute (We used free trial key of COHERE), the we upsert all embedding in less than 10sec in qdrant.
