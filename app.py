@@ -86,7 +86,7 @@ def event_hai(event, say):
                             model='command-xlarge-nightly',  
                             prompt = prompt,  
                             max_tokens=400,  
-                            temperature=0.87)
+                            temperature=0.65)
             answer = answer.generations[0].text
             print("======", answer)
             block = block_answer(answer, users[0], urls[0])
