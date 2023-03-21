@@ -31,7 +31,7 @@ the evaluation, Qdrant is the fastest way to search index and very easy to manip
 If you want to test our app, you have to join our [slack server](https://join.slack.com/t/heuristicai/shared_invite/zt-1reg204at-6BlH_V5E4r18BnpZX2JByA). And if you find any issue to connect to our 
 slack or not able to use our app, just leave an [issue](https://github.com/bm777/Heuristic/issues), within an hour, you will get a reply.
 
-Due to the limited, we did get chance to prepare the distribution of our app and deploy on slack app directory for review, then the Slack's team has to verify and apporove our app if we respect the 
+Due to the limited, we didn't get chance to prepare the distribution of our app and deploy on slack app directory for review, then the Slack's team has to verify and apporove our app if we respect the 
 Terms and condition, and this verification process could take time, so we decide to allow user to join our workspace to test it.
 
 The steps:
