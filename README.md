@@ -40,7 +40,7 @@ The steps:
 - after populating, now, you must index all message just by asking our AI app called "hai", by the keyword setup: e.g.: "hai, start the setup". You should receive message Indexing done.
 - Then now you can try to search following the structure: "hai, your-query"
 - and you can stay in a channel, just ask a query it will dig into all slack channels and give the answer to you with exact location of the message.
-- Just be innovative while searching, try to ask question in German and you will get the answer in german with the location of the message in the original language.
+- Just be innovative while searching, try to ask question in German and you will get the answer with the location of the message in the original language.
 
 Search in Arabic giving the same result as in French and english
 ![Alt](assets/Arabic.gif)
