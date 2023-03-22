@@ -43,14 +43,14 @@ def event_hai(event, say):
             qdrant.create_collection("hai")
             print({
                     "idx": hai._idx,
-                    "vectors": hai._passages
+                    "vectors": len(hai._passages)
                 })
             print("after create collection")
             qdrant.insert_batch(
                 {
                     "idx": hai._idx,
                     "payloads": hai._payload,
-                    "vectors": len(hai._vectors)
+                    "vectors": hai._vectors
                 }
             )
             print("after insert")
