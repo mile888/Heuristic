@@ -50,7 +50,7 @@ def event_hai(event, say):
                 {
                     "idx": hai._idx,
                     "payloads": hai._payload,
-                    "vectors": hai._vectors
+                    "vectors": len(hai._vectors)
                 }
             )
             print("after insert")
