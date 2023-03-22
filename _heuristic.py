@@ -19,6 +19,7 @@ class Heuristic(WebClient):
         super().__init__(token=os.environ.get("SLACK_BOT_TOKEN"))
         self._channels = []
         self._payload = []
+        self._passages = []
         self._vectors = []
         self._idx = []
         
@@ -105,13 +106,16 @@ class Heuristic(WebClient):
                     "url": self.chat_getPermalink(channel=channel_id, message_ts=ts)["permalink"]
                 })
                 start  = time.time()
+                self._passages.append(joined_child_with_parent)
                 self._vectors.append(
                     co.embed(texts=[joined_child_with_parent], model="multilingual-22-12").embeddings[0]
                 )
-                print("parent message+threads -> emb: ", time.time() - start)
+                # print("parent message+threads -> emb: ", time.time() - start)
                 self._idx.append(indexer_counter)
                 indexer_counter += 1
                 # print("parent message+threads -> emb: ", time.time() - start)
+            self._vectors += [joined_child_with_parent]
+        print(len(self._vectors))
 
 
 if __name__ == "__main__":
