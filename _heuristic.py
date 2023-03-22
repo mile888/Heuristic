@@ -88,13 +88,13 @@ class Heuristic(WebClient):
                 temp = []
                 for _tm in thread_messages:
                     if "hai" in _tm["text"].lower():
-                        pass
+                        break
                     elif "bot_id" in _tm:
-                        pass
+                        break
                     elif "this message was deleted" in _tm["text"].lower():
-                        pass
+                        break
                     elif "has joined the channel" in _tm["text"].lower():
-                        pass
+                        break
                     else:
                         _threads.append( trim(_tm["text"]))
 
@@ -115,7 +115,7 @@ class Heuristic(WebClient):
                 indexer_counter += 1
                 print("->", joined_child_with_parent)
                 
-                self._passages += joined_child_with_parent
+                self._passages += temp
         print(len(self._passages))
 
 
