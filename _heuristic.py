@@ -77,7 +77,7 @@ class Heuristic(WebClient):
             
             for message in channel_messages:
                 ts = message["ts"]
-                start  = time.time()
+                
 
                 # find all threaded messages
                 thread_messages = self.find_threaded_messages(channel_id, ts)
@@ -104,12 +104,14 @@ class Heuristic(WebClient):
                     "user": message["user"],
                     "url": self.chat_getPermalink(channel=channel_id, message_ts=ts)["permalink"]
                 })
+                start  = time.time()
                 self._vectors.append(
                     co.embed(texts=[joined_child_with_parent], model="multilingual-22-12").embeddings[0]
                 )
+                print("parent message+threads -> emb: ", time.time() - start)
                 self._idx.append(indexer_counter)
                 indexer_counter += 1
-                print("parent message+threads -> emb: ", time.time() - start)
+                # print("parent message+threads -> emb: ", time.time() - start)
 
 
 if __name__ == "__main__":
