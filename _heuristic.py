@@ -114,7 +114,7 @@ class Heuristic(WebClient):
                 self._idx.append(indexer_counter)
                 indexer_counter += 1
                 # print("parent message+threads -> emb: ", time.time() - start)
-            self._passages += [joined_child_with_parent]
+            self._passages += joined_child_with_parent
         print(len(self._passages))
 
 
