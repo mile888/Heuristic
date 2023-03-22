@@ -6,6 +6,9 @@ from _heuristic import Heuristic
 from utils.string_cleaner import trim
 from template_block._prompt import structure
 from template_block._blocker import block_answer, block_setup
+import time
+
+start = time.time()
 
 # Initializes your app with your bot token and signing secret
 app = App(
@@ -13,7 +16,7 @@ app = App(
     signing_secret=os.environ.get("SLACK_SIGNING_SECRET")
 )
 co = cohere.Client(os.environ.get("COHERE_API_TOKEN"))
-
+print("loading key: ",time.time() - start)
 
 # Listenning to events
 @app.event("message")
@@ -32,6 +35,7 @@ def event_hai(event, say):
             say(
                 blocks=block
             )
+            start = time.time()
             hai = Heuristic()
             hai.setup()
         
@@ -56,40 +60,38 @@ def event_hai(event, say):
             )
 
         else:
-
+            start = time.time()
             query = trim(event["text"])
+            print("trim text: ",time.time() - start)
 
+            start = time.time()
             embed = co.embed(texts=[query], model="multilingual-22-12").embeddings[0]
+            print("embed: ",time.time() - start)
+
+            start = time.time()
             results = qdrant.search_answer(embed, topk=5)
+            print("search: ",time.time() - start)
             res = [dict(r) for r in results]
-            
-            passages = []
-            urls = []
-            users = []
-            for dic in res:
-                passages.append(dic["payload"]["passage"])
-                urls.append(dic["payload"]["url"])
-                users.append(dic["payload"]["user"])
-            
+
+            start = time.time()
+            passage = res[0]["payload"]["passage"]
+            url = res[0]["payload"]["url"]
+            user = res[0]["payload"]["user"]
+            print("Take the first elt: ",time.time() - start)
             
             # prompt = "Generate the answer from the following context: "
-            prompt = structure(context=passages[0], query=query)
-            # answers = [ 
-            #             co.generate(  
-            #                 model='command-medium-nightly',  
-            #                 prompt = prompt + trim(context),  
-            #                 max_tokens=200,  
-            #                 temperature=0.650) 
-            #             for context in passages
-            #         ]
+            prompt = structure(context=passage, query=query)
+
+            start = time.time()
             answer = co.generate(  
                             model='command-xlarge-nightly',  
                             prompt = prompt,  
-                            max_tokens=400,  
+                            max_tokens=60,  
                             temperature=0.65)
+            print("generate: ",time.time() - start)
             answer = answer.generations[0].text
             print("======", answer)
-            block = block_answer(answer, users[0], urls[0])
+            block = block_answer(answer, user, url)
             say(
                 blocks=block
             )

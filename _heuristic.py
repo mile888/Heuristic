@@ -1,5 +1,5 @@
 
-import os
+import os, time
 import cohere
 import logging
 from slack_sdk import WebClient
@@ -69,8 +69,10 @@ class Heuristic(WebClient):
 
         for channel_detail in self._channels["channels"]:
             channel_id = channel_detail["id"]
+            start  = time.time()
             channel_messages = self.retrieve_messages(channel_id)
-            print("Found {} messages from <{}> channel".format(len(channel_messages), channel_detail["name"]))
+            
+            print("Found {} messages from <{}> channel in {}".format(len(channel_messages), channel_detail["name"]), time.time() - start)
 
             for message in channel_messages:
                 ts = message["ts"]
