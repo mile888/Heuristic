@@ -117,7 +117,7 @@ class Heuristic(WebClient):
                 
                 self._passages += temp
         print(len(self._passages), self._passages[0])
-        self._passages = co.embed(texts=[self._passages], model="multilingual-22-12").embeddings[0]
+        self._passages = co.embed(texts=self._passages, model="multilingual-22-12").embeddings[0]
 
         print(len(self._passages), self._passages[-6:])
 
