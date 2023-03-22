@@ -116,7 +116,7 @@ class Heuristic(WebClient):
                 print("->", joined_child_with_parent)
                 
                 self._passages += temp
-        print(self._passages[90:])
+        print(len(self._passages), self._passages[0])
         self._passages = co.embed(texts=[self._passages], model="multilingual-22-12").embeddings[0]
 
         print(len(self._passages), self._passages[-6:])
