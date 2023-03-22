@@ -72,7 +72,7 @@ class Heuristic(WebClient):
             start  = time.time()
             channel_messages = self.retrieve_messages(channel_id)
             
-            print("Found {} messages from <{}> channel in {}".format(len(channel_messages), channel_detail["name"]), time.time() - start)
+            print("Found {} messages from <{}> channel in {}".format(len(channel_messages), channel_detail["name"], time.time() - start))
 
             for message in channel_messages:
                 ts = message["ts"]
