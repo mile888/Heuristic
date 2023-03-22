@@ -74,9 +74,10 @@ class Heuristic(WebClient):
             
             print("Found {} messages from <{}> channel in {}".format(len(channel_messages), channel_detail["name"], time.time() - start))
 
-            start  = time.time()
+            
             for message in channel_messages:
                 ts = message["ts"]
+                start  = time.time()
 
                 # find all threaded messages
                 thread_messages = self.find_threaded_messages(channel_id, ts)
@@ -108,7 +109,7 @@ class Heuristic(WebClient):
                 )
                 self._idx.append(indexer_counter)
                 indexer_counter += 1
-            print("parent message+threads -> emb: ", time.time() - start)
+                print("parent message+threads -> emb: ", time.time() - start)
 
 
 if __name__ == "__main__":
