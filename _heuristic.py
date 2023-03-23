@@ -113,12 +113,12 @@ class Heuristic(WebClient):
                 # print("parent message+threads -> emb: ", time.time() - start)
                 self._idx.append(indexer_counter)
                 indexer_counter += 1
-                print("->", time.time() - start)
+                print("->",len(joined_child_with_parent), time.time() - start)
                 
                 self._passages += temp
         start  = time.time()
-        self._vector = co.embed(texts=self._passages, model="multilingual-22-12").embeddings
-        print("generate embeddings of {} in {} sec".format(len(self._vector), time.time() - start))
+        self._vectors = co.embed(texts=self._passages, model="multilingual-22-12").embeddings
+        print("generate embeddings of {} in {} sec".format(len(self._vectors), time.time() - start))
         print(len(self._passages))
 
 
