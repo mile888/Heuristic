@@ -69,7 +69,7 @@ class Heuristic(WebClient):
         indexer_counter = 1
 
         ignored_case = ["hai", "this message was deleted", "has joined the channel"]
-
+        st = time.time()
         for channel_detail in self._channels["channels"]:
             channel_id = channel_detail["id"]
 
@@ -108,6 +108,7 @@ class Heuristic(WebClient):
                 self._passages += [joined_child_with_parent]
         
         self._vectors = co.embed(texts=self._passages, model="multilingual-22-12").embeddings
+        print(time.time()- st)
 
 
 if __name__ == "__main__":
