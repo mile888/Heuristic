@@ -107,9 +107,9 @@ class Heuristic(WebClient):
                 })
                 start  = time.time()
                 temp.append(joined_child_with_parent)
-                self._vectors.append(
-                    co.embed(texts=[joined_child_with_parent], model="multilingual-22-12").embeddings[0]
-                )
+                # self._vectors.append(
+                #     co.embed(texts=[joined_child_with_parent], model="multilingual-22-12").embeddings[0]
+                # )
                 # print("parent message+threads -> emb: ", time.time() - start)
                 self._idx.append(indexer_counter)
                 indexer_counter += 1

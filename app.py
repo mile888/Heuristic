@@ -43,14 +43,15 @@ def event_hai(event, say):
             qdrant.create_collection("hai")
             print({
                     "idx": len(hai._idx),
-                    "vectors": len(hai._passages)
+                    "_vectors": len(hai._passages),
+                    "vectors": len(hai._vectors)
                 })
             print("after create collection")
             qdrant.insert_batch(
                 {
                     "idx": hai._idx,
                     "payloads": hai._payload,
-                    "vectors": hai._vectors
+                    "vectors": co.embed(texts=hai._passages, model="multilingual-22-12").embeddings
                 }
             )
             print("after insert")
