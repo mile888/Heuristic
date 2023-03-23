@@ -51,7 +51,7 @@ def event_hai(event, say):
                 {
                     "idx": hai._idx,
                     "payloads": hai._payload,
-                    "vectors": co.embed(texts=hai._passages, model="multilingual-22-12").embeddings
+                    "vectors": co.embed(texts=hai.vectors, model="multilingual-22-12").embeddings
                 }
             )
             print("after insert")
