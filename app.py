@@ -42,7 +42,7 @@ def event_hai(event, say):
             qdrant.drop("hai")
             qdrant.create_collection("hai")
             print({
-                    "idx": hai._idx,
+                    "idx": len(hai._idx),
                     "vectors": len(hai._passages)
                 })
             print("after create collection")

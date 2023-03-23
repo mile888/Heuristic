@@ -116,9 +116,9 @@ class Heuristic(WebClient):
                 print("->", joined_child_with_parent)
                 
                 self._passages += temp
-
+        start  = time.time()
         self._passages = co.embed(texts=self._passages, model="multilingual-22-12").embeddings
-
+        print("generate embeddings of {} in {} sec".format(len(self._passages), time.time() - start))
         print(len(self._passages))
 
 
