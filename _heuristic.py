@@ -68,16 +68,18 @@ class Heuristic(WebClient):
         print("Found -{}- channels".format(len(self._channels["channels"])))
         indexer_counter = 1
 
+        ignored_case = ["hai", "this message was deleted", "has joined the channel"]
+
         for channel_detail in self._channels["channels"]:
             channel_id = channel_detail["id"]
-            start  = time.time()
+
             channel_messages = self.retrieve_messages(channel_id)
             
-            print("Found {} messages from <{}> channel in {}".format(len(channel_messages), channel_detail["name"], time.time() - start))
+            print("Found {} messages from <{}> channel".format(len(channel_messages), channel_detail["name"]))
 
             
             for message in channel_messages:
-                start  = time.time()
+
                 ts = message["ts"]
 
                 # find all threaded messages
@@ -85,15 +87,9 @@ class Heuristic(WebClient):
 
                 # join all the threaded messages pass useless message
                 _threads = []
-                temp = []
                 for _tm in thread_messages:
-                    if "hai" in _tm["text"].lower():
-                        break
-                    elif "bot_id" in _tm:
-                        break
-                    elif "this message was deleted" in _tm["text"].lower():
-                        break
-                    elif "has joined the channel" in _tm["text"].lower():
+                    
+                    if any(e in _tm["text"].lower() for e in ignored_case) or "bot_id" in _tm:
                         break
                     else:
                         _threads.append( trim(_tm["text"]))
@@ -105,21 +101,13 @@ class Heuristic(WebClient):
                     "user": message["user"],
                     "url": self.chat_getPermalink(channel=channel_id, message_ts=ts)["permalink"]
                 })
-                start  = time.time()
-                temp.append(joined_child_with_parent)
-                # self._vectors.append(
-                #     co.embed(texts=[joined_child_with_parent], model="multilingual-22-12").embeddings[0]
-                # )
-                # print("parent message+threads -> emb: ", time.time() - start)
+           
                 self._idx.append(indexer_counter)
                 indexer_counter += 1
-                print("->",len(joined_child_with_parent), time.time() - start)
                 
-                self._passages += temp
-        start  = time.time()
+                self._passages += [joined_child_with_parent]
+        
         self._vectors = co.embed(texts=self._passages, model="multilingual-22-12").embeddings
-        print("generate embeddings of {} in {} sec".format(len(self._vectors), time.time() - start))
-        print(len(self._passages))
 
 
 if __name__ == "__main__":
